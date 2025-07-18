@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1080, height=1920, initial-scale=1.0, user-scalable=no">
+  <title>Proyectos Inmobiliarios</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100vw;
+      height: 100vh;
+      background: linear-gradient(to bottom, #001f54, #0077b6);
+      font-family: 'Segoe UI', sans-serif;
+      overflow: hidden;
+      color: white;
+      -webkit-user-select: none;
+      -webkit-touch-callout: none;
+    }
+
+    .encabezado {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 40px;
+      padding: 40px 20px;
+    }
+
+    .encabezado img {
+      width: 110px;
+      height: auto;
+    }
+
+    .encabezado h2 {
+      margin: 0;
+      font-size: 46px;
+      font-weight: bold;
+      text-transform: uppercase;
+      color: #caf0f8;
+      text-shadow: 2px 2px 6px rgba(0,0,0,0.6);
+    }
+
+    .galeria {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      padding: 10px 40px 100px;
+      height: calc(100vh - 280px);
+      overflow-y: auto;
+      justify-items: center;
+    }
+
+    .proyecto {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .proyecto img {
+      width: 400px;
+      max-width: 500px;
+      height: 250px;
+      border-radius: 25px;
+      border: 5px solid #00b4d8;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+      cursor: pointer;
+      transition: transform 0.2s ease, border-color 0.3s, box-shadow 0.3s ease;
+    }
+
+    .proyecto img:active {
+      transform: scale(0.96);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+      border-color: #90e0ef;
+    }
+
+    .proyecto span {
+      margin-top: 10px;
+      font-size: 24px;
+      font-weight: 600;
+      color: #ffffffcc;
+      text-align: center;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.4);
+    }
+
+    #visor3d, #visorImagenes {
+      display: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: black;
+      z-index: 1;
+    }
+
+    #visorImagenes img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+      margin: auto;
+    }
+
+    #btnVolver {
+      position: absolute;
+      top: 30px;
+      left: 30px;
+      background: #00b4d8;
+      color: white;
+      padding: 14px 26px;
+      font-size: 22px;
+      font-weight: bold;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      display: none;
+      z-index: 10;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+      transition: all 0.2s ease;
+    }
+
+    #btnVolver:active {
+      transform: scale(0.95);
+      background: #90e0ef;
+    }
+
+    .pie {
+      position: absolute;
+      bottom: 20px;
+      width: 100%;
+      text-align: center;
+      font-size: 22px;
+      font-weight: 600;
+      color: #ffffffcc;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.4);
+    }
+
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #00b4d8;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+
+  <button id="btnVolver">Volver</button>
+
+  <div class="encabezado">
+    <img src="BGRLOGO.svg" alt="Logo">
+    <h2>PROYECTOS INMOBILIARIOS</h2>
+  </div>
+
+  <div class="galeria">
+    <div class="proyecto">
+      <img src="CASA1.jpg" alt="Mapa 3D" data-map="https://my.matterport.com/show/?m=KzvTrV9ChGW">
+      <span>Aura 976</span>
+    </div>
+    <div class="proyecto">
+      <img src="PORTON.jpg" alt="Mapa 3D" data-map="https://my.matterport.com/show/?m=ZF68io43cZP">
+      <span>Porton de Sevilla</span>
+    </div>
+    <div class="proyecto">
+      <img src="ANDALUZA.png" alt="Mapa 3D" data-map="https://my.matterport.com/show/?m=f3b2LcLEhty">
+      <span>Andaluza</span>
+    </div>
+    <div class="proyecto">
+      <img src="FLORESTA.avif" alt="Sin mapa 3D" data-images="FLORESTA1.avif,FLORESTA2.avif,FLORESTA3.avif,FLORESTA4.avif,FLORESTA5.avif,FLORESTA6.avif,">
+      <span>Condominio Floresta</span>
+    </div>
+    <div class="proyecto">
+      <img src="PASEOSCHAMIZAL.jpg" alt="Sin mapa 3D" data-images="PCHAMIZAL1.jpg,PCHAMIZAL2.jpg,PCHAMIZAL3.jpg,PCHAMIZAL4.jpg,PCHAMIZAL5.jpg,PCHAMIZAL6.jpg,PCHAMIZAL7.jpg,PCHAMIZAL8.jpg,">
+      <span>Paseos del Chamizal</span>
+    </div>
+    <div class="proyecto">
+      <img src="GRANADADECARRETAS.jpeg" alt="Sin mapa 3D" data-images="GCARRETAS1.jpeg,GCARRETAS2.jpeg,GCARRETAS3.jpeg,GCARRETAS4.jpeg,GCARRETAS5.jpeg,GCARRETAS6.jpeg,GCARRETAS7.jpeg,GCARRETAS8.jpeg,">
+      <span>Granada de Carretas</span>
+    </div>
+
+  <div class="pie">BANCO GENERAL RUMIÑAHUI</div>
+
+  <iframe id="visor3d"></iframe>
+
+  <div id="visorImagenes">
+    <img id="imgCarrusel" src="">
+  </div>
+
+  <script>
+    const imagenes = document.querySelectorAll('.proyecto img');
+    const visor3d = document.getElementById('visor3d');
+    const visorImagenes = document.getElementById('visorImagenes');
+    const imgCarrusel = document.getElementById('imgCarrusel');
+    const galeria = document.querySelector('.galeria');
+    const btnVolver = document.getElementById('btnVolver');
+    let carruselTimer = null;
+    let carruselIndex = 0;
+    let carruselArray = [];
+
+    imagenes.forEach(img => {
+      img.addEventListener('click', () => {
+        const mapUrl = img.getAttribute('data-map');
+        const imageList = img.getAttribute('data-images');
+
+        galeria.style.display = 'none';
+        btnVolver.style.display = 'block';
+
+        if (mapUrl) {
+          visor3d.src = mapUrl;
+          visor3d.style.display = 'block';
+        } else if (imageList) {
+          carruselArray = imageList.split(',');
+          carruselIndex = 0;
+          imgCarrusel.src = carruselArray[carruselIndex];
+          visorImagenes.style.display = 'block';
+
+          carruselTimer = setInterval(() => {
+            carruselIndex = (carruselIndex + 1) % carruselArray.length;
+            imgCarrusel.src = carruselArray[carruselIndex];
+          }, 3000);
+        }
+      });
+    });
+
+    btnVolver.addEventListener('click', () => {
+      visor3d.style.display = 'none';
+      visor3d.src = '';
+      visorImagenes.style.display = 'none';
+
+      if (carruselTimer) {
+        clearInterval(carruselTimer);
+        carruselTimer = null;
+      }
+
+      galeria.style.display = 'grid';
+      btnVolver.style.display = 'none';
+    });
+  </script>
+
+</body>
+</html>

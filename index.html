@@ -23,7 +23,7 @@
       align-items: center;
       justify-content: center;
       gap: 40px;
-      padding: 40px 20px;
+      padding: 40px 20px 10px;
     }
 
     .encabezado img {
@@ -40,12 +40,42 @@
       text-shadow: 2px 2px 6px rgba(0,0,0,0.6);
     }
 
+    /* 🔥 Botón de Registro */
+    .registro {
+      width: calc(100% - 100px);
+      max-width: 700px;
+      margin: 20px auto 30px;
+      padding: 28px 0;
+      background: #00b4d8;
+      border-radius: 50px;
+      text-align: center;
+      font-size: 28px;
+      font-weight: bold;
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 0 25px rgba(0, 180, 216, 0.7);
+      animation: pulse 2s infinite;
+      transition: transform 0.2s ease, box-shadow 0.3s ease;
+      user-select: none;
+    }
+
+    .registro:active {
+      transform: scale(0.95);
+      box-shadow: 0 0 15px rgba(0, 180, 216, 0.9);
+    }
+
+    @keyframes pulse {
+      0%   { box-shadow: 0 0 15px rgba(0, 180, 216, 0.5); }
+      50%  { box-shadow: 0 0 35px rgba(0, 180, 216, 0.8); }
+      100% { box-shadow: 0 0 15px rgba(0, 180, 216, 0.5); }
+    }
+
     .galeria {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 40px;
       padding: 10px 40px 100px;
-      height: calc(100vh - 280px);
+      height: calc(100vh - 340px);
       overflow-y: auto;
       justify-items: center;
     }
@@ -154,6 +184,11 @@
     <h2>PROYECTOS INMOBILIARIOS</h2>
   </div>
 
+  <!-- 🔥 Botón de Registro -->
+  <div class="registro" data-map="https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAAZAAND0JKFUREw4N1dLNUdBSjNQTTZHT1VXR0hPNlhHUy4u">
+    Regístrate por favor
+  </div>
+
   <div class="galeria">
     <div class="proyecto">
       <img src="CASA1.jpg" alt="Mapa 3D" data-map="https://my.matterport.com/show/?m=KzvTrV9ChGW">
@@ -168,15 +203,15 @@
       <span>Andaluza</span>
     </div>
     <div class="proyecto">
-      <img src="FLORESTA.avif" alt="Sin mapa 3D" data-images="FLORESTA1.avif,FLORESTA2.avif,FLORESTA3.avif,FLORESTA4.avif,FLORESTA5.avif,FLORESTA6.avif,">
+      <img src="FLORESTA.avif" alt="Sin mapa 3D" data-images="FLORESTA1.avif,FLORESTA2.avif,FLORESTA3.avif,FLORESTA4.avif,FLORESTA5.avif,FLORESTA6.avif">
       <span>Condominio Floresta</span>
     </div>
     <div class="proyecto">
-      <img src="PASEOSCHAMIZAL.jpg" alt="Sin mapa 3D" data-images="PCHAMIZAL1.jpg,PCHAMIZAL2.jpg,PCHAMIZAL3.jpg,PCHAMIZAL4.jpg,PCHAMIZAL5.jpg,PCHAMIZAL6.jpg,PCHAMIZAL7.jpg,PCHAMIZAL8.jpg,">
+      <img src="PASEOSCHAMIZAL.jpg" alt="Sin mapa 3D" data-images="PCHAMIZAL1.jpg,PCHAMIZAL2.jpg,PCHAMIZAL3.jpg,PCHAMIZAL4.jpg,PCHAMIZAL5.jpg,PCHAMIZAL6.jpg,PCHAMIZAL7.jpg,PCHAMIZAL8.jpg">
       <span>Paseos del Chamizal</span>
     </div>
     <div class="proyecto">
-      <img src="GRANADADECARRETAS.jpeg" alt="Sin mapa 3D" data-images="GCARRETAS1.jpeg,GCARRETAS2.jpeg,GCARRETAS3.jpeg,GCARRETAS4.jpeg,GCARRETAS5.jpeg,GCARRETAS6.jpeg,GCARRETAS7.jpeg,GCARRETAS8.jpeg,">
+      <img src="GRANADADECARRETAS.jpeg" alt="Sin mapa 3D" data-images="GCARRETAS1.jpeg,GCARRETAS2.jpeg,GCARRETAS3.jpeg,GCARRETAS4.jpeg,GCARRETAS5.jpeg,GCARRETAS6.jpeg,GCARRETAS7.jpeg,GCARRETAS8.jpeg">
       <span>Granada de Carretas</span>
     </div>
   </div>
@@ -196,6 +231,7 @@
     const imgCarrusel = document.getElementById('imgCarrusel');
     const galeria = document.querySelector('.galeria');
     const btnVolver = document.getElementById('btnVolver');
+    const btnRegistro = document.querySelector('.registro');
     let carruselTimer = null;
     let carruselIndex = 0;
     let carruselArray = [];
@@ -206,6 +242,7 @@
         const imageList = img.getAttribute('data-images');
 
         galeria.style.display = 'none';
+        btnRegistro.style.display = 'none';
         btnVolver.style.display = 'block';
 
         if (mapUrl) {
@@ -225,6 +262,18 @@
       });
     });
 
+    btnRegistro.addEventListener('click', () => {
+      const mapUrl = btnRegistro.getAttribute('data-map');
+      galeria.style.display = 'none';
+      btnRegistro.style.display = 'none';
+      btnVolver.style.display = 'block';
+
+      if (mapUrl) {
+        visor3d.src = mapUrl;
+        visor3d.style.display = 'block';
+      }
+    });
+
     btnVolver.addEventListener('click', () => {
       visor3d.style.display = 'none';
       visor3d.src = '';
@@ -236,6 +285,7 @@
       }
 
       galeria.style.display = 'grid';
+      btnRegistro.style.display = 'block';
       btnVolver.style.display = 'none';
     });
   </script>
